@@ -1,11 +1,11 @@
-package dev.arcticdevelopment.template;
+package dev.arcticdevelopment.arcticcollectors;
 
 import dev.kyro.arcticapi.ArcticAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Template extends JavaPlugin {
+public class ArcticCollectors extends JavaPlugin {
 
-    public static Template INSTANCE;
+    public static ArcticCollectors INSTANCE;
 
     @Override
     public void onEnable() {

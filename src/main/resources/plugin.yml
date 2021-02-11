@@ -1,8 +1,6 @@
-name: ArcticPrinter
-author: KyroKrypt
+name: Arctic
+authors: [ KyroKrypt, Finn ]
 version: 1.0.0
-main: dev.kyro.arcticprinter.ArcticPrinter
-description: Printer plugin for factions
-softDepend: [ ShopGUIPlus, Vault ]
-commands:
-  printer:
+main: dev.arcticdevelopment.arcticcollectors.ArcticCollectors
+description: Chunk collector plugin for factions
+#commands:
