@@ -3,4 +3,5 @@ authors: [ KyroKrypt, Finn ]
 version: 1.0.0
 main: dev.arcticdevelopment.arcticcollectors.ArcticCollectors
 description: Chunk collector plugin for factions
-#commands:
+commands:
+  collector:
