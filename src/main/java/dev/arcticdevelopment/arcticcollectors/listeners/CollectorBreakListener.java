@@ -1,8 +1,6 @@
 package dev.arcticdevelopment.arcticcollectors.listeners;
 
-import dev.arcticdevelopment.arcticcollectors.ArcticCollectors;
-import dev.kyro.arcticapi.data.AConfig;
-import dev.kyro.arcticapi.data.ASerializer;
+import dev.arcticdevelopment.arcticcollectors.ulitities.collectors.CollectorManager;
 import dev.kyro.arcticapi.misc.AOutput;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -15,8 +13,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
-
 public class CollectorBreakListener implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public static void destroyedCollector(BlockBreakEvent event) {
@@ -25,32 +21,24 @@ public class CollectorBreakListener implements Listener {
 				|| event.getBlock().getType() != Material.BEACON) return;
 
 		Player player = event.getPlayer();
+		Location location = event.getBlock().getLocation();
+
+		if(!(CollectorManager.collectorList.containsKey(location.getChunk()))) {
+
+			return;
+		}
 
 		ItemStack collector = new ItemStack(Material.BEACON, 1);
 		ItemMeta meta = collector.getItemMeta();
+
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lChunk &8&lCollector"));
 		collector.setItemMeta(meta);
 
+		event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), collector);
 
-		List<String> locations = AConfig.getStringList("collectors");
+		CollectorManager.collectorList.remove(location.getChunk());
 
-		for(String stringTestLocation : locations) {
-
-			Location testLocation = ASerializer.deserializeLocation(stringTestLocation);
-
-			if(event.getBlock().getLocation().equals(testLocation)) {
-
-				AOutput.send(player, "Destroyed &acollector&7");
-
-				List<String> list = AConfig.getStringList("collectors");
-				list.remove(stringTestLocation);
-				AConfig.set("collectors", list);
-				ArcticCollectors.INSTANCE.saveConfig();
-				event.getBlock().setType(Material.AIR);
-				event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), collector);
-
-			}
-		}
+		AOutput.send(player, "Destroyed &acollector&7");
 	}
 }

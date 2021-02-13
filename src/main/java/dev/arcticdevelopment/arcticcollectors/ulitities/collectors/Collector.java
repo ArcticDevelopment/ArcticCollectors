@@ -8,17 +8,15 @@ import org.bukkit.Material;
 
 import java.util.HashMap;
 
-public class Collectors {
+public class Collector {
 
-	private final String name;
 	private final Location location;
 	private final AInventoryBuilder inventoryBuilder;
 
 	private HashMap<Material,Integer> itemsStored = new HashMap<>();
 
-	public Collectors(String name, Location location) {
+	public Collector(Location location) {
 
-		this.name = name;
 		this.location = location;
 
 		this.inventoryBuilder = new AInventoryBuilder(null,36, ChatColor.translateAlternateColorCodes(
@@ -42,10 +40,6 @@ public class Collectors {
 
 	public Location getLocation() {
 		return location;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public AInventoryBuilder getInventoryBuilder() {
