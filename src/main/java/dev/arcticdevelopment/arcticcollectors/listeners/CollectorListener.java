@@ -1,5 +1,7 @@
 package dev.arcticdevelopment.arcticcollectors.listeners;
 
+import com.bgsoftware.wildstacker.api.events.SpawnerSpawnEvent;
+import com.bgsoftware.wildstacker.api.objects.StackedEntity;
 import dev.arcticdevelopment.arcticcollectors.ArcticCollectors;
 import dev.kyro.arcticapi.data.AConfig;
 import dev.kyro.arcticapi.data.ASerializer;
@@ -11,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.SpawnerSpawnEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -99,26 +100,26 @@ public class CollectorListener implements org.bukkit.event.Listener {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
 	public static void mobSpawn(SpawnerSpawnEvent event) {
-		if (event.getEntityType() == EntityType.BLAZE) {
+		if (event.getEntity().getType() == EntityType.BLAZE) {
 			return;
 		}
-
-		Location location = event.getLocation();
+		StackedEntity entity = event.getEntity();
+		Location location = event.getEntity().getLocation();
 		List<String> locationList = AConfig.getStringList("collectors");
+		entity.remove();
 
 		for (String stringTestLocation: locationList) {
 			Location testLocation = ASerializer.deserializeLocation(stringTestLocation);
 			System.out.println(testLocation.getChunk());
 			System.out.println(location.getChunk());
 			if (location.getChunk().equals(testLocation.getChunk())) {
-				event.setCancelled(true);
 				Bukkit.broadcastMessage("collector killed mob");
 				return;
 			}
 		}
-		event.setCancelled(true);
+
 		Bukkit.broadcastMessage("event was cancelled because no collector");
 
 	}

@@ -63,6 +63,7 @@ public class ArcticCollectors extends JavaPlugin {
     private void registerCommands() {
 
         getCommand("collector").setExecutor(new giveCollector());
+
     }
 
     private void registerListeners() {
