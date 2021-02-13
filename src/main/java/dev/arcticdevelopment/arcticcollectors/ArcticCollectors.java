@@ -1,9 +1,15 @@
 package dev.arcticdevelopment.arcticcollectors;
 
-import dev.finn.plugin.commands.giveCollector;
+import dev.arcticdevelopment.arcticcollectors.listeners.CollectorBreakListener;
+import dev.arcticdevelopment.arcticcollectors.listeners.CollectorEntitySpawnListener;
+import dev.arcticdevelopment.arcticcollectors.listeners.CollectorOpenListener;
+import dev.arcticdevelopment.arcticcollectors.listeners.CollectorPlaceListener;
+import dev.arcticdevelopment.arcticcollectors.ulitities.RegisteredListenerWrapper;
 import dev.kyro.arcticapi.ArcticAPI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.event.entity.SpawnerSpawnEvent;
+import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,7 +33,13 @@ public class ArcticCollectors extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        Bukkit.getServer().getPluginManager().registerEvents(new dev.arcticdevelopment.arcticcollectors.listeners.CollectorListener(), this);
+
+        for(RegisteredListener rl : SpawnerSpawnEvent.getHandlerList().getRegisteredListeners()) {
+
+            SpawnerSpawnEvent.getHandlerList().unregister(rl);
+
+            SpawnerSpawnEvent.getHandlerList().register(new RegisteredListenerWrapper(rl));
+        }
 
         loadConfig();
 
@@ -62,13 +74,17 @@ public class ArcticCollectors extends JavaPlugin {
 
     private void registerCommands() {
 
-        getCommand("collector").setExecutor(new giveCollector());
+        getCommand("collector").setExecutor(new dev.arcticdevelopment.arcticcollectors.commands.giveCollector());
 
     }
 
     private void registerListeners() {
 
-//        getServer().getPluginManager().registerEvents(new PrinterEvents(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CollectorPlaceListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CollectorEntitySpawnListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CollectorBreakListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CollectorOpenListener(), this);
+
     }
 }
 
