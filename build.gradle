@@ -25,3 +25,7 @@ dependencies {
     compileOnly fileTree('libs'){include'*.jar'}
 
 }
+shadowJar {
+
+    relocate 'dev.kyro.arcticapi', 'dev.kyro.arcticcollectors.arcticapi'
+}
