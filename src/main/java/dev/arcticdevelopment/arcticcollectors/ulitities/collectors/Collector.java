@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Collector {
 
 	private final Location location;
-	private final AInventoryBuilder inventoryBuilder;
+	public AInventoryBuilder inventoryBuilder;
 
 	private HashMap<Material,Integer> itemsStored = new HashMap<>();
 
@@ -36,14 +36,11 @@ public class Collector {
 				.setSlot(Material.ENDER_PEARL, 0,23,null,null)
 				.setSlot(Material.EMERALD, 0,24,null,null)
 				.setSlot(Material.TNT, 0,25,null,null);
+
 	}
 
 	public Location getLocation() {
 		return location;
-	}
-
-	public AInventoryBuilder getInventoryBuilder() {
-		return inventoryBuilder;
 	}
 
 	public HashMap<Material, Integer> getItemsStored() {
@@ -52,6 +49,11 @@ public class Collector {
 
 	public void setItemsStored(HashMap<Material, Integer> itemsStored) {
 		this.itemsStored = itemsStored;
+	}
+	public void addDrop(Material drop, int amount) {
+
+		itemsStored.putIfAbsent(drop, 0);
+		itemsStored.put(drop,itemsStored.get(drop)+amount);
 	}
 
 	public Chunk getChunk() {
