@@ -20,14 +20,14 @@ public class ArcticCollectors extends JavaPlugin {
     public void onEnable() {
 
         INSTANCE = this;
-        ArcticAPI.init(this, "&d&lFINN&r &8|| &7", "&d&lFINN&r &8|| &7");
+        ArcticAPI.init(this, "&d&lCOLLECTORS&r &8|| &7", "&d&lCOLLECTORS&r &8|| &7");
 
         if(!setupEconomy()) {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        Bukkit.getServer().getPluginManager().registerEvents(new dev.finn.plugin.listeners.CollectorListener(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new dev.arcticdevelopment.arcticcollectors.listeners.CollectorListener(), this);
 
         loadConfig();
 
