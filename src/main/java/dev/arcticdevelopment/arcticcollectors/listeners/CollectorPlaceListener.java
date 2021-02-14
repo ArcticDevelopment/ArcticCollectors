@@ -39,6 +39,7 @@ public class CollectorPlaceListener implements Listener {
 		}
 
 		CollectorManager.collectorList.put(location.getChunk(),collector);
+		AOutput.send(player, "Placed collector");
 	}
 }
 

@@ -1,5 +1,6 @@
 package dev.arcticdevelopment.arcticcollectors.listeners;
 
+import dev.arcticdevelopment.arcticcollectors.ulitities.collectors.Collector;
 import dev.arcticdevelopment.arcticcollectors.ulitities.collectors.CollectorManager;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -27,7 +28,8 @@ public class CollectorOpenListener implements Listener {
 		if (CollectorManager.isBlockCollector(block)) {
 
 			event.setCancelled(true);
-
+			Collector collector = CollectorManager.collectorList.get(block.getChunk());
+			player.openInventory(collector.collectorUI.inventory);
 		}
 
 	}

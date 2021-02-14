@@ -21,20 +21,20 @@ public class CollectorEntitySpawnListener implements Listener {
 			return;
 		}
 
+		event.setCancelled(true);
 		Location location = event.getEntity().getLocation();
 		EntityType entityType = event.getEntityType();
 		Collector collector = CollectorManager.collectorList.get(location.getChunk());
 		StackedSpawner stackedSpawner = WildStackerAPI.getStackedSpawner(event.getSpawner());
 		int stackAmount = stackedSpawner.getStackAmount();
 
-		if (collector == null) {
-			event.setCancelled(true);
-			return;
-		}
+		if (collector == null) return;
 
+		System.out.println("entity spawned in collector chunk");
 		switch(entityType) {
 			case ENDERMAN:
 				collector.addDrop(Material.ENDER_PEARL,stackAmount);
+				System.out.println("switch case eman");
 				break;
 			case VILLAGER:
 				collector.addDrop(Material.EMERALD,stackAmount);

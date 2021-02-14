@@ -14,6 +14,7 @@ public class Collector {
 	public AInventoryBuilder inventoryBuilder;
 
 	private HashMap<Material,Integer> itemsStored = new HashMap<>();
+	public CollectorUI collectorUI = new CollectorUI("collector",4);
 
 	public Collector(Location location) {
 
@@ -22,7 +23,7 @@ public class Collector {
 		this.inventoryBuilder = new AInventoryBuilder(null,36, ChatColor.translateAlternateColorCodes(
 				'&',"Collector"))
 				.createBorder(Material.STAINED_GLASS_PANE,3)
-				.setSlot(Material.WOOL, 0,10,null,null)
+				.setSlot(Material.WOOL, 0,10,null, null)
 				.setSlot(Material.LEATHER, 0,11,null,null)
 				.setSlot(Material.RAW_BEEF, 0,12,null,null)
 				.setSlot(Material.RAW_CHICKEN, 0,13,null,null)
@@ -37,7 +38,9 @@ public class Collector {
 				.setSlot(Material.EMERALD, 0,24,null,null)
 				.setSlot(Material.TNT, 0,25,null,null);
 
-	}
+		collectorUI.inventory = inventoryBuilder.inventory;
+		}
+
 
 	public Location getLocation() {
 		return location;
@@ -54,6 +57,9 @@ public class Collector {
 
 		itemsStored.putIfAbsent(drop, 0);
 		itemsStored.put(drop,itemsStored.get(drop)+amount);
+		System.out.println("added drop");
+		String dropAmount = "x" + itemsStored.get(Material.ENDER_PEARL);
+		CollectorUI.updateSlotLore(inventoryBuilder,23,dropAmount);
 	}
 
 	public Chunk getChunk() {
