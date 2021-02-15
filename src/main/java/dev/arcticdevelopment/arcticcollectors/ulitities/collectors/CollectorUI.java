@@ -40,11 +40,12 @@ public class CollectorUI extends AInventoryUI {
 
 		ArrayList<String> loreList = new ArrayList<>();
 		loreList.add(lore);
-
+		System.out.println(loreList);
 		ItemStack itemStack = inventoryBuilder.inventory.getItem(slot);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setLore(loreList);
 
 		inventoryBuilder.inventory.setItem(slot,itemStack);
+		System.out.println("set inventory");
 	}
 }

@@ -34,10 +34,10 @@ public class CollectorEntitySpawnListener implements Listener {
 		switch(entityType) {
 			case ENDERMAN:
 				collector.addDrop(Material.ENDER_PEARL,stackAmount);
-				System.out.println("switch case eman");
 				break;
 			case VILLAGER:
 				collector.addDrop(Material.EMERALD,stackAmount);
+				System.out.println("switch case villager");
 				break;
 		}
 	}

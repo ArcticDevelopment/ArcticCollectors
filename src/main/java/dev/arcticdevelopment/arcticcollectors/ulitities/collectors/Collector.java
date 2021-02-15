@@ -58,8 +58,9 @@ public class Collector {
 		itemsStored.putIfAbsent(drop, 0);
 		itemsStored.put(drop,itemsStored.get(drop)+amount);
 		System.out.println("added drop");
-		String dropAmount = "x" + itemsStored.get(Material.ENDER_PEARL);
-		CollectorUI.updateSlotLore(inventoryBuilder,23,dropAmount);
+		String dropAmount = "x" + itemsStored.get(drop);
+		System.out.println(dropAmount);
+		CollectorUI.updateSlotLore(inventoryBuilder,24,dropAmount);
 	}
 
 	public Chunk getChunk() {
