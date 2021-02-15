@@ -36,16 +36,18 @@ public class CollectorUI extends AInventoryUI {
 	public void onClose(InventoryCloseEvent inventoryCloseEvent) {
 
 	}
-	public static void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore) {
+	public void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore) {
 
 		ArrayList<String> loreList = new ArrayList<>();
 		loreList.add(lore);
 		System.out.println(loreList);
+
 		ItemStack itemStack = inventoryBuilder.inventory.getItem(slot);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setLore(loreList);
 
 		inventoryBuilder.inventory.setItem(slot,itemStack);
+		inventory = inventoryBuilder.inventory;
 		System.out.println("set inventory");
 	}
 }

@@ -60,7 +60,7 @@ public class Collector {
 		System.out.println("added drop");
 		String dropAmount = "x" + itemsStored.get(drop);
 		System.out.println(dropAmount);
-		CollectorUI.updateSlotLore(inventoryBuilder,24,dropAmount);
+		collectorUI.updateSlotLore(inventoryBuilder,24,dropAmount);
 	}
 
 	public Chunk getChunk() {
