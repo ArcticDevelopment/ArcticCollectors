@@ -37,7 +37,6 @@ public class CollectorEntitySpawnListener implements Listener {
 				break;
 			case VILLAGER:
 				collector.addDrop(Material.EMERALD,stackAmount);
-				System.out.println("switch case villager");
 				break;
 		}
 	}

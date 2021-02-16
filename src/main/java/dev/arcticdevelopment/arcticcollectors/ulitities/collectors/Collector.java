@@ -54,9 +54,9 @@ public class Collector {
 
 		itemsStored.putIfAbsent(drop, 0);
 		itemsStored.put(drop,itemsStored.get(drop)+amount);
-		System.out.println("added drop");
+
 		String dropAmount = "x" + itemsStored.get(drop);
-		System.out.println(dropAmount);
+
 		collectorUI.updateSlotLore(inventoryBuilder,24,dropAmount,this);
 	}
 

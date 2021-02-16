@@ -1,7 +1,9 @@
 package dev.arcticdevelopment.arcticcollectors.ulitities.collectors;
 
 import dev.kyro.arcticapi.builders.AInventoryBuilder;
+import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticapi.ui.AInventoryUI;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -9,8 +11,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
 
 public class CollectorUI extends AInventoryUI {
 
@@ -46,17 +46,15 @@ public class CollectorUI extends AInventoryUI {
 	}
 	public void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore,Collector collector) {
 
-		ArrayList<String> loreList = new ArrayList<>();
-		loreList.add(lore);
-		System.out.println(loreList);
-
 		ItemStack itemStack = inventoryBuilder.inventory.getItem(slot);
+		ALoreBuilder loreBuilder = new ALoreBuilder(new ItemStack(Material.DIAMOND));
 		ItemMeta itemMeta = itemStack.getItemMeta();
-		itemMeta.setLore(loreList);
-		itemStack.setItemMeta(itemMeta);
-		inventoryBuilder.inventory.setItem(slot,itemStack);
 
+		loreBuilder.addLore(lore);
+		itemMeta.setLore(loreBuilder.lore);
+		itemStack.setItemMeta(itemMeta);
+
+		inventoryBuilder.inventory.setItem(slot,itemStack);
 		collector.collectorUI.inventory = inventoryBuilder.inventory;
-		System.out.println("set inventory");
 	}
 }
