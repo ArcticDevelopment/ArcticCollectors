@@ -2,6 +2,8 @@ package dev.arcticdevelopment.arcticcollectors.listeners;
 
 import dev.arcticdevelopment.arcticcollectors.ulitities.collectors.Collector;
 import dev.arcticdevelopment.arcticcollectors.ulitities.collectors.CollectorManager;
+import dev.kyro.arcticapi.hooks.AFactionsHook;
+import dev.kyro.arcticapi.hooks.enums.FactionRank;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -17,6 +19,14 @@ public class CollectorOpenListener implements Listener {
 
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
+		FactionRank rank = AFactionsHook.getFactionRank(player);
+
+		switch(rank) {
+			case RECRUIT:
+			case MEMBER:
+			case MODERATOR:
+				return;
+		}
 
 		if((event.getAction() != Action.RIGHT_CLICK_BLOCK) || (event.getClickedBlock() == null)) {
 			return;
