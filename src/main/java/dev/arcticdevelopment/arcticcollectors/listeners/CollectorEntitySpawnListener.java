@@ -30,7 +30,6 @@ public class CollectorEntitySpawnListener implements Listener {
 
 		if (collector == null) return;
 
-		System.out.println("entity spawned in collector chunk");
 		switch(entityType) {
 			case ENDERMAN:
 				collector.addDrop(Material.ENDER_PEARL,stackAmount);

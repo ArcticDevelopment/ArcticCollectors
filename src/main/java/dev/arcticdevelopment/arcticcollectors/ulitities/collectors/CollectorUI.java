@@ -47,14 +47,16 @@ public class CollectorUI extends AInventoryUI {
 	public void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore,Collector collector) {
 
 		ItemStack itemStack = inventoryBuilder.inventory.getItem(slot);
-		ALoreBuilder loreBuilder = new ALoreBuilder(new ItemStack(Material.DIAMOND));
 		ItemMeta itemMeta = itemStack.getItemMeta();
+		ALoreBuilder loreBuilder = new ALoreBuilder(new ItemStack(Material.DIAMOND))
+				.addLore(lore)
+				.colorize();
 
-		loreBuilder.addLore(lore);
 		itemMeta.setLore(loreBuilder.lore);
 		itemStack.setItemMeta(itemMeta);
 
 		inventoryBuilder.inventory.setItem(slot,itemStack);
 		collector.collectorUI.inventory = inventoryBuilder.inventory;
+
 	}
 }
