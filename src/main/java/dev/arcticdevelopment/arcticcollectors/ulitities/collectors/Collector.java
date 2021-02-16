@@ -1,7 +1,6 @@
 package dev.arcticdevelopment.arcticcollectors.ulitities.collectors;
 
 import dev.kyro.arcticapi.builders.AInventoryBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,9 +18,7 @@ public class Collector {
 	public Collector(Location location) {
 
 		this.location = location;
-
-		this.inventoryBuilder = new AInventoryBuilder(null,36, ChatColor.translateAlternateColorCodes(
-				'&',"Collector"))
+		inventoryBuilder = new AInventoryBuilder(collectorUI.inventory)
 				.createBorder(Material.STAINED_GLASS_PANE,3)
 				.setSlot(Material.WOOL, 0,10,null, null)
 				.setSlot(Material.LEATHER, 0,11,null,null)
@@ -60,7 +57,7 @@ public class Collector {
 		System.out.println("added drop");
 		String dropAmount = "x" + itemsStored.get(drop);
 		System.out.println(dropAmount);
-		collectorUI.updateSlotLore(inventoryBuilder,24,dropAmount);
+		collectorUI.updateSlotLore(inventoryBuilder,24,dropAmount,this);
 	}
 
 	public Chunk getChunk() {

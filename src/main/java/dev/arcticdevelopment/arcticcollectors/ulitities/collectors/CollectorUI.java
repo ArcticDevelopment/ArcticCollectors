@@ -2,6 +2,7 @@ package dev.arcticdevelopment.arcticcollectors.ulitities.collectors;
 
 import dev.kyro.arcticapi.builders.AInventoryBuilder;
 import dev.kyro.arcticapi.ui.AInventoryUI;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -15,28 +16,35 @@ public class CollectorUI extends AInventoryUI {
 
 
 	public CollectorUI(Inventory inventory) {
+
 		super(inventory);
 	}
 
 	public CollectorUI(String name, int rows) {
+
 		super(name, rows);
 	}
 
 	@Override
-	public boolean onClick(InventoryClickEvent inventoryClickEvent) {
-		return false;
+	public boolean onClick(InventoryClickEvent event) {
+
+		if (!(event.getWhoClicked() instanceof Player)) return true;
+
+		Player player = (Player) event.getWhoClicked();
+		player.updateInventory();
+		return true;
 	}
 
 	@Override
-	public void onOpen(InventoryOpenEvent inventoryOpenEvent) {
+	public void onOpen(InventoryOpenEvent event) {
 
 	}
 
 	@Override
-	public void onClose(InventoryCloseEvent inventoryCloseEvent) {
+	public void onClose(InventoryCloseEvent event) {
 
 	}
-	public void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore) {
+	public void updateSlotLore(AInventoryBuilder inventoryBuilder, int slot, String lore,Collector collector) {
 
 		ArrayList<String> loreList = new ArrayList<>();
 		loreList.add(lore);
@@ -45,9 +53,10 @@ public class CollectorUI extends AInventoryUI {
 		ItemStack itemStack = inventoryBuilder.inventory.getItem(slot);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		itemMeta.setLore(loreList);
-
+		itemStack.setItemMeta(itemMeta);
 		inventoryBuilder.inventory.setItem(slot,itemStack);
-		inventory = inventoryBuilder.inventory;
+
+		collector.collectorUI.inventory = inventoryBuilder.inventory;
 		System.out.println("set inventory");
 	}
 }
