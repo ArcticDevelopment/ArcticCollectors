@@ -1,7 +1,19 @@
-prefix: "&7[&b&lA&7]&f "
-error-prefix: "&8[&c&lA&8]&f "
+config-version: 1.1
+####################################################
+##                                                ##
+##        Arctic Collectors Configuration         ##
+##           Developed by Finn and Kyro           ##
+##                                                ##
+####################################################
+
+# Set the plugin prefix
+prefix: "&d&lCOLLECTORS&r &8|| &7"
+error-prefix: "&d&lCOLLECTORS&r &8|| &7"
+# Allow collectors be placed in unclaimed territory
+place-collectors-in-wild: false
 
 messages:
+
 
 collectors:
   -

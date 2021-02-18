@@ -26,7 +26,7 @@ public class ArcticCollectors extends JavaPlugin {
     public void onEnable() {
 
         INSTANCE = this;
-        ArcticAPI.init(this, "&d&lCOLLECTORS&r &8|| &7", "&d&lCOLLECTORS&r &8|| &7");
+        ArcticAPI.init(this, ArcticCollectors.INSTANCE.getConfig().getString("prefix"), ArcticCollectors.INSTANCE.getConfig().getString("error-prefix"));
 
         if(!setupEconomy()) {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
