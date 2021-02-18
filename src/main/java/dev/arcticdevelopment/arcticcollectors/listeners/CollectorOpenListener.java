@@ -8,24 +8,22 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class CollectorOpenListener implements Listener {
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public static void openCollector(PlayerInteractEvent event) {
 
 		Player player = event.getPlayer();
 		Block block = event.getClickedBlock();
 		FactionRank rank = AFactionsHook.getFactionRank(player);
 
-		switch(rank) {
-			case RECRUIT:
-			case MEMBER:
-			case MODERATOR:
-				return;
+		if (!AFactionsHook.inOwnTerritory(player)){
+			return;
 		}
 
 		if((event.getAction() != Action.RIGHT_CLICK_BLOCK) || (event.getClickedBlock() == null)) {
@@ -35,6 +33,15 @@ public class CollectorOpenListener implements Listener {
 		if(event.getClickedBlock().getType() != Material.BEACON) {
 			return;
 		}
+
+		switch(rank) {
+			case RECRUIT:
+			case MEMBER:
+			case MODERATOR:
+				return;
+		}
+
+
 		if (CollectorManager.isBlockCollector(block)) {
 
 			event.setCancelled(true);
